@@ -4,11 +4,21 @@ import re
 from pdf2image import convert_from_path
 from PIL import Image
 import os
+import numpy as np
+
+# NOVO: Função para redimensionar imagem
+def resize_image(img, max_width=1000):
+    h, w = img.shape[:2]
+    if w > max_width:
+        scale = max_width / w
+        img = cv2.resize(img, (int(w * scale), int(h * scale)))
+    return img
 
 def preprocess_image(image_path):
     image = cv2.imread(image_path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    gray = resize_image(gray)  # <- Reduz tamanho da imagem aqui
     return gray
 
 def extract_text(image_path):
