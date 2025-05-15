@@ -1,0 +1,5 @@
+{
+  "name": "seguradora-extractor",
+  "description": "Extração de dados via OCR para corretora de seguros",
+  "type": "web"
+}
